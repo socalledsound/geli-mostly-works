@@ -46,7 +46,7 @@ function draw(){
     rect(0,0, width, height)
 
     stroke (255)
-    strokeWeight(3)
+    strokeWeight(random(3,10))
     noFill()
     //let volume = input.getLevel()
     //let threshold = 0.1
@@ -55,9 +55,11 @@ function draw(){
         beginShape()
         for (var i=0; i <= PI; i+= PI/360){
             var index = floor(map(i, 0, PI, 0, wave.length - 1))
-            var r = map(wave[index],-1, 1, 150, 350)
+            var r = map(wave[index],-1, 1, 50, 500)
             var x = r * sin(i) * t
             var y = r * cos(i)
+            strokeWeight(random(3,10))
+            stroke ([random(255), random(255), random(255), 100])
             vertex(x,y)   
         }
         endShape()
@@ -92,6 +94,7 @@ class Panels {
       this.life = 0;
       this.colors = [];
       this.setColors(n);
+      this.extraRotate = 0
     }
     setColors() {
       this.n = Math.floor(random(5, 9));
@@ -101,6 +104,7 @@ class Panels {
       }
       this.colors = colors;
       this.life = this.lifemax;
+      this.extraRotate = 1.0
     }
     run() {
       this.update();
@@ -112,7 +116,7 @@ class Panels {
     }
     display() {
       push();
-      rotate(frameCount * 0.01);
+      rotate(frameCount * 0.005 + this.extraRotate);
       for (let i = 0; i < this.n; i++) {
         stroke(255);
         strokeWeight(2);
@@ -120,6 +124,10 @@ class Panels {
         arc(0, 0, width + height, width + height, ((2 * PI) / this.n) * i, ((2 * PI) / this.n) * (i + 1), PIE);
       }
       pop();
+      if(this.extraRotate > 0){
+        this.extraRotate -=0.1
+      }
+      
     }
   }
 
