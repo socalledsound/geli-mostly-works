@@ -155,3 +155,8 @@ class Particle {
         ellipse(this.pos.x, this.pos.y, this.w)
     }
 }
+
+
+function degreesToRadians(angleInDegrees) {
+    return (Math.PI * angleInDegrees) / 180;
+  }
